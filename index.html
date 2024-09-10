@@ -2,44 +2,101 @@
 <html lang="fr">
 
 <head>
+    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Statique avec Sous-parties</title>
-   
-    <link rel="stylesheet" href="style.css">
+    <title>Graphiques Palmer Penguins avec Plot</title>
+    <style>
+        .graphique {
+            width: 600px;
+            height: 400px;
+            margin: 20px auto;
+        }
+    </style>
 </head>
 
 <body>
 
-    
     <nav>
-        <a href="#graphique1">graphic 1</a>
-        <a href="#graphique2">graphic 2</a>
+        <a href="#Bec">Longueur du Bec</a>
+        <a href="#Nageoires">Longueur des Nageoires</a>
     </nav>
 
-    
-    <section id="graphique1">
-        <h2>graphique 1</h2>
-        <p>
-            Ceci est le contenu du premier graphique. 
-        </p>
-        <figure>
-            <div class="graphique" id="graphique1"></div>
-            <figcaption>Graphique représentant les données de la première partie.</figcaption>
-        </figure>
+    <section id="Bec">
+        <h2>Longueur du Bec (en mm)</h2>
+        <div class="graphique" id="graphique1"></div>
     </section>
 
-    
-    <section id="graphique2">
-        <h2>graphique 2</h2>
-        <p>
-            Ceci est le contenu du deuxieme graphique.
-        </p>
-        <figure>
-            <div class="graphique" id="graphique2"></div>
-            <figcaption>Graphique représentant les données de la deuxième partie.</figcaption>
-        </figure>
+    <section id="Nageoires">
+        <h2>Longueur des Nageoires (en mm)</h2>
+        <div class="graphique" id="graphique2"></div>
     </section>
+
+    <script type="module">
+        import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";
+
+       
+        async function creerGraphiques() {
+            try {
+                const response = await fetch('palmer_penguins.json'); 
+                const data = await response.json(); 
+
+                
+                const graphiqueBec = Plot.plot({
+                    marks: [
+                        Plot.barY(data, {
+                            x: "species",
+                            y: "bill_length_mm",
+                            aggregate: "mean" 
+                        })
+                    ],
+                    x: {
+                        label: "Espèces"
+                    },
+                    y: {
+                        label: "Longueur du bec (mm)"
+                    },
+                    color: {
+                        scheme: "blues"
+                    },
+                    height: 400,
+                    width: 600
+                });
+
+                
+                const graphiqueNageoire = Plot.plot({
+                    marks: [
+                        Plot.barY(data, {
+                            x: "species",
+                            y: "flipper_length_mm",
+                            aggregate: "mean" 
+                        })
+                    ],
+                    x: {
+                        label: "Espèces"
+                    },
+                    y: {
+                        label: "Longueur des nageoires (mm)"
+                    },
+                    color: {
+                        scheme: "greens"
+                    },
+                    height: 400,
+                    width: 600
+                });
+
+                
+                document.querySelector("#graphique1").append(graphiqueBec);
+                document.querySelector("#graphique2").append(graphiqueNageoire);
+
+            } catch (error) {
+                console.error("Erreur lors du chargement des données ou création des graphiques :", error);
+            }
+        }
+
+        
+        creerGraphiques();
+    </script>
 
 </body>
 

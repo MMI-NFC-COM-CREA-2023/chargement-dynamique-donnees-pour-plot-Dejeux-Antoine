@@ -1,0 +1,11 @@
+[
+    { "species": "Adelie", "bill_length_mm": 39.1, "flipper_length_mm": 181 },
+    { "species": "Adelie", "bill_length_mm": 39.5, "flipper_length_mm": 186 },
+    { "species": "Adelie", "bill_length_mm": 40.3, "flipper_length_mm": 195 },
+    { "species": "Chinstrap", "bill_length_mm": 48.7, "flipper_length_mm": 195 },
+    { "species": "Chinstrap", "bill_length_mm": 49.6, "flipper_length_mm": 193 },
+    { "species": "Chinstrap", "bill_length_mm": 50.5, "flipper_length_mm": 194 },
+    { "species": "Gentoo", "bill_length_mm": 46.1, "flipper_length_mm": 210 },
+    { "species": "Gentoo", "bill_length_mm": 50.2, "flipper_length_mm": 220 },
+    { "species": "Gentoo", "bill_length_mm": 51.5, "flipper_length_mm": 230 }
+]
